@@ -1,0 +1,46 @@
+.waveform {
+  width: 100%;
+  height: 60px;
+  position: relative;
+}
+
+.upperWave {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: end;
+  border-bottom: solid 1px rgb(18, 18, 18);
+}
+
+.lowerWave {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: start;
+  opacity: 0.8;
+}
+
+.bar {
+  width: 0.4%;
+  background: white;
+}
+
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-repeat: repeat-x;
+  background: url('/images/grid.png');
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+  width: 100%;
+  opacity: 0.5;
+  background: rgba(0, 0, 0, 0.8);
+}

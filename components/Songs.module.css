@@ -1,0 +1,7 @@
+.songs {
+  padding-bottom: 12px;
+
+  @media (min-width: 768px) {
+    padding-bottom: 25px;
+  }
+}

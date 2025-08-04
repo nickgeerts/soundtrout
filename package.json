@@ -1,0 +1,27 @@
+{
+  "name": "soundtrout",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "next": "^15.4.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "ci": "npm run lint && npm run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.17",
+    "@types/react": "19.1.1",
+    "eslint": "9.32.0",
+    "eslint-config-next": "15.4.5",
+    "prisma": "^6.13.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}

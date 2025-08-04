@@ -1,0 +1,154 @@
+.songPlayer {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    padding: 25px 12px;
+    gap: 25px;
+  }
+}
+
+.play {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.playIcon {
+  width: 18px;
+  height: 18px;
+  filter: invert();
+  position: relative;
+  left: 2px;
+}
+
+.pauseIcon {
+  width: 18px;
+  height: 18px;
+  filter: invert();
+}
+
+.cover {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  border: solid 1px #303030;
+
+  @media (min-width: 768px) {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.header {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+}
+
+.artist {
+  opacity: 0.6;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  font-size: 12px;
+  opacity: 0.6;
+  text-align: right;
+  margin-bottom: 6px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.genre {
+  padding: 3px 8px 2px;
+  border-radius: 12px;
+  background: rgb(48, 48, 48);
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.waveform {
+  /* width: 0%; */
+  /* max-width: 632px; */
+  width: 100%;
+  height: 60px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  background: #555555;
+  border-radius: 4px;
+  padding: 0 12px;
+  height: 32px;
+  border: none;
+  color: white;
+}
+
+.heartIcon {
+  height: 12px;
+}
+
+.playsIcon {
+  height: 10px;
+  position: relative;
+  top: -1px;
+}
+
+.plays {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+.link {
+  text-decoration: none;
+}

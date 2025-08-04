@@ -1,0 +1,18 @@
+# Node.js
+/.env
+/node_modules
+
+# Temp
+/tmp
+
+# macOS
+.DS_Store
+/.vscode
+
+# Build
+/.next
+/tsconfig.tsbuildinfo
+
+# Data
+/soundtrout.json
+/public/data

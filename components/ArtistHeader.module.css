@@ -1,0 +1,19 @@
+.artistHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: 0 12px 25px;
+  background: white;
+  color: rgb(18, 18, 18);
+  font-size: 30px;
+  font-weight: 700;
+  padding: 12px 25px;
+  text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    font-size: 50px;
+  }
+}

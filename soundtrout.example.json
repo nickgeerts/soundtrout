@@ -1,0 +1,28 @@
+{
+  "artists": [
+    {
+      "slug": "munchausen-by-proxy",
+      "name": "Munchausen by Proxy"
+    }
+  ],
+  "songs": [
+    {
+      "slug": "uh-huh-who-are-you",
+      "artistSlug": "nick-breed",
+      "title": "Uh-Huh (Who are you?)",
+      "audioUrl": "/data/munchhausen-by-proxy-uh-huh.mp3",
+      "coverUrl": "/data/munchhausen-by-proxy-uh-huh.jpeg",
+      "genre": "Indie Pop",
+      "publishedAt": "2025-08-04"
+    },
+    {
+      "slug": "lfos-are-real",
+      "artistSlug": "nick-breed",
+      "title": "Sweet Ballad",
+      "audioUrl": "/data/munchhausen-by-proxy-sweet-ballad.mp3",
+      "coverUrl": "/data/munchhausen-by-proxy-sweet-ballad.jpeg",
+      "genre": "Indie Pop",
+      "publishedAt": "2025-08-04"
+    }
+  ]
+}
