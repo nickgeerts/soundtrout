@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SongMetadata {
+  id         Int      @id @default(autoincrement())
+  artistSlug String
+  slug       String
+  playCount  Int      @default(0)
+  likeCount  Int      @default(0)
+  waveform   Int[]    @default([])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([artistSlug, slug])
+}

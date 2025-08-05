@@ -6,6 +6,7 @@ import { Song } from '../types/song'
 import { useSongPlayer } from './SongPlayerProvider'
 import { Waveform } from './Waveform'
 import Link from 'next/link'
+import { incrementSongLikeCount } from '../actions/incrementSongLikeCount'
 
 type Props = {
   song: Song
@@ -22,11 +23,18 @@ const PlayButton = ({ onClick, isPlaying }) => (
 )
 
 export const SongPlayer: FC<Props> = ({ song }) => {
-  const { songTimes, songBuffers, songMetadatas, artists, playSong, pauseSong, playingSlug } =
-    useSongPlayer()
+  const {
+    songTimes,
+    songMetadata,
+    setSongMetadata,
+    songBuffers,
+    artists,
+    playSong,
+    pauseSong,
+    playingSlug
+  } = useSongPlayer()
   const artist = artists.find((currentArtist) => currentArtist.slug === song.artistSlug)
   const fullSlug = [artist.slug, song.slug].join('/')
-  const songMetadata = songMetadatas[fullSlug]
   const songTime = songTimes[fullSlug]
   const songBuffer = songBuffers[fullSlug]
   const progress = songBuffer ? songTime / songBuffer.duration : 0
@@ -51,6 +59,17 @@ export const SongPlayer: FC<Props> = ({ song }) => {
     const newSongTime =
       (songBuffer.duration * (event.clientX - rect.left)) / (rect.right - rect.left)
     playSong(artist.slug, song.slug, newSongTime)
+  }
+
+  const onClickLike = (event: MouseEvent) => {
+    incrementSongLikeCount(artist.slug, song.slug).then((newSongMetadata) => {
+      if (!newSongMetadata) return
+
+      setSongMetadata({
+        ...songMetadata,
+        [fullSlug]: newSongMetadata
+      })
+    })
   }
 
   return (
@@ -86,15 +105,15 @@ export const SongPlayer: FC<Props> = ({ song }) => {
 
         <div className={styles.footer}>
           <div className={styles.actions}>
-            <button className={styles.action}>
+            <button className={styles.action} onClick={onClickLike}>
               <img src="/icons/heart.svg" className={styles.heartIcon} />
-              {songMetadata.likeCount}
+              {songMetadata[fullSlug]?.likeCount ?? 0}
             </button>
           </div>
 
           <div className={styles.plays}>
             <img src="/icons/play.svg" className={styles.playsIcon} />
-            {songMetadata.playCount}
+            {songMetadata[fullSlug]?.playCount ?? 0}
           </div>
         </div>
       </div>

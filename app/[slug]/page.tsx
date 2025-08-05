@@ -3,6 +3,7 @@ import { SongPlayer } from '../../components/SongPlayer'
 import data from '../../soundtrout.json'
 import Link from 'next/link'
 import { Container } from '../../components/Container'
+import styles from './page.module.css'
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -18,7 +19,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     <Container>
       <SongPlayer song={song} />
 
-      <Link href="/" style={{ color: 'white', paddingLeft: 12 }}>
+      <Link href="/" className={styles.link}>
         More songs by {artist.name}
       </Link>
     </Container>

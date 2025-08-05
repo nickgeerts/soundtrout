@@ -12,14 +12,16 @@ import {
 } from 'react'
 import data from '../soundtrout.json'
 import { Artist } from '../types/artist'
-import { Song, SongMetadata } from '../types/song'
+import { IndexedSongMetadata, Song } from '../types/song'
+import { incrementSongPlayCount } from '../actions/incrementSongPlayCount'
 
 type TSongPlayerContent = {
   artists: Artist[]
   songs: Song[]
   songTimes: Record<string, number>
   setSongTimes: (newSongTimes: Record<string, number>) => void
-  songMetadatas: Record<string, SongMetadata>
+  songMetadata: IndexedSongMetadata
+  setSongMetadata: (newSongMetadata: IndexedSongMetadata) => void
   songBuffers: Record<string, AudioBuffer>
   playingSlug: string
   isPlaying: boolean
@@ -32,7 +34,8 @@ const SongPlayerContext = createContext<TSongPlayerContent>({
   songs: [],
   songTimes: {},
   setSongTimes: (newSongTimes: Record<string, number>) => {},
-  songMetadatas: {},
+  songMetadata: {},
+  setSongMetadata: (newSongMetadata: IndexedSongMetadata) => {},
   songBuffers: {},
   playingSlug: '',
   isPlaying: false,
@@ -45,10 +48,11 @@ export function useSongPlayer() {
 }
 
 type Props = {
+  songMetadata: IndexedSongMetadata
   children: ReactNode
 }
 
-export const SongPlayerProvider: FC<Props> = ({ children }) => {
+export const SongPlayerProvider: FC<Props> = ({ songMetadata: initialSongMetadata, children }) => {
   const artists = data.artists ?? []
   const songs = data.songs ?? []
   const indexedSongs: Record<string, Song> = songs.reduce(
@@ -66,11 +70,19 @@ export const SongPlayerProvider: FC<Props> = ({ children }) => {
   const isPlaying = useMemo(() => playingSlug !== '', [playingSlug])
   const [startTime, setStartTime] = useState(0)
   const timeout = useRef(null)
+  const [songMetadata, setSongMetadata] = useState(initialSongMetadata)
 
   useEffect(() => {
     const newAudioContext = new AudioContext()
     setAudioContext(newAudioContext)
   }, [])
+
+  useEffect(() => {
+    if (!bufferSource) return
+
+    bufferSource.addEventListener('ended', onSongEnded)
+    return () => bufferSource.removeEventListener('ended', onSongEnded)
+  }, [bufferSource])
 
   async function loadSong(artistSlug: string, songSlug: string, play: boolean) {
     const fullSlug = [artistSlug, songSlug].join('/')
@@ -106,6 +118,12 @@ export const SongPlayerProvider: FC<Props> = ({ children }) => {
       if (!startAt) updateTimes(playingSlug, startTime)
     }
 
+    if (!songTimes[fullSlug]) {
+      incrementSongPlayCount(artistSlug, songSlug).then((newSongMetadata) =>
+        setSongMetadata({ ...songMetadata, [fullSlug]: newSongMetadata })
+      )
+    }
+
     const newBufferSource = audioContext.createBufferSource()
     const offset = startAt ?? songTimes[fullSlug] ?? 0
     newBufferSource.buffer = songBuffer
@@ -133,27 +151,23 @@ export const SongPlayerProvider: FC<Props> = ({ children }) => {
 
   function pauseSong() {
     bufferSource.stop()
+    setBufferSource(null)
     clearTimeout(timeout.current)
     updateTimes(playingSlug, startTime)
     setPlayingSlug('')
   }
 
-  const songMetadatas = useMemo(
-    () =>
-      songs.reduce((acc, song) => {
-        const artist = artists.find((currentArtist) => currentArtist.slug === song.artistSlug)
-        const fullSlug = [artist.slug, song.slug].join('/')
+  function onSongEnded() {
+    bufferSource.stop()
+    setBufferSource(null)
+    clearTimeout(timeout.current)
+    setPlayingSlug('')
 
-        return {
-          ...acc,
-          [fullSlug]: {
-            likeCount: 0,
-            playCount: 0
-          }
-        }
-      }, {}),
-    []
-  )
+    setSongTimes((prevSongTimes) => ({
+      ...prevSongTimes,
+      [playingSlug]: 0
+    }))
+  }
 
   const context = useMemo(
     () => ({
@@ -161,7 +175,8 @@ export const SongPlayerProvider: FC<Props> = ({ children }) => {
       songs,
       songTimes,
       setSongTimes,
-      songMetadatas,
+      songMetadata,
+      setSongMetadata,
       songBuffers,
       playingSlug,
       isPlaying,
@@ -172,9 +187,10 @@ export const SongPlayerProvider: FC<Props> = ({ children }) => {
       JSON.stringify(artists),
       JSON.stringify(songs),
       JSON.stringify(songTimes),
-      JSON.stringify(songMetadatas),
+      JSON.stringify(songMetadata),
       JSON.stringify(songBuffers),
       setSongTimes,
+      setSongMetadata,
       playingSlug,
       isPlaying,
       playSong,

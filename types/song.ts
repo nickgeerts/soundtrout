@@ -1,3 +1,5 @@
+import { SongMetadata } from '../generated/prisma'
+
 export type Song = {
   slug: string
   artistSlug: string
@@ -9,7 +11,4 @@ export type Song = {
   publishedAt: string
 }
 
-export type SongMetadata = {
-  likeCount: number
-  playCount: number
-}
+export type IndexedSongMetadata = Record<string, SongMetadata>
