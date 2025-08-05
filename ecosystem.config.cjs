@@ -26,7 +26,7 @@ module.exports = {
     production: {
       user: 'deploy',
       host: 'nickgeerts.com',
-      ref: 'origin/master',
+      ref: 'origin/main',
       repo,
       ssh_options: 'ForwardAgent=yes',
       path: `/home/deploy/${name}`,
