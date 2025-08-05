@@ -16,5 +16,5 @@
 # Data
 /soundtrout.json
 /public/data
-
 /generated/prisma
+/ecosystem.config.cjs
