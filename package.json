@@ -18,7 +18,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "ci": "npm run lint && npm run typecheck",
-    "deploy": "pm2 deploy ecosystem.config.cjs production deploy"
+    "deploy": "pm2 deploy ecosystem.config.cjs production deploy",
+    "deploy:setup": "pm2 deploy ecosystem.config.cjs production setup"
   },
   "devDependencies": {
     "@types/node": "22.15.17",
