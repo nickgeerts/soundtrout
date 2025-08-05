@@ -2,7 +2,7 @@ const name = 'nickbreed'
 const script = 'node_modules/.bin/next'
 const port = 3010
 const args = `start -p ${port}`
-const repo = 'git@github.com:njjkgeerts/soundtrout.git'
+const repo = 'git@github.com:nickgeerts/soundtrout.git'
 const build = 'npm install && npx prisma migrate deploy && npx prisma generate && npm run build'
 
 module.exports = {
