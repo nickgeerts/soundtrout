@@ -1,4 +1,7 @@
 {
+  "config": {
+    "singleArtistView": true
+  },
   "artists": [
     {
       "slug": "munchausen-by-proxy",
@@ -9,7 +12,7 @@
   "songs": [
     {
       "slug": "uh-huh-who-are-you",
-      "artistSlug": "nick-breed",
+      "artistSlug": "munchausen-by-proxy",
       "name": "Uh-Huh (Who are you?)",
       "audioUrl": "/data/munchhausen-by-proxy-uh-huh.mp3",
       "coverUrl": "/data/munchhausen-by-proxy-uh-huh.jpeg",
@@ -18,8 +21,8 @@
       "description": "This tells the tale of meeting someone special."
     },
     {
-      "slug": "lfos-are-real",
-      "artistSlug": "nick-breed",
+      "slug": "sweet-ballad",
+      "artistSlug": "munchausen-by-proxy",
       "name": "Sweet Ballad",
       "audioUrl": "/data/munchhausen-by-proxy-sweet-ballad.mp3",
       "coverUrl": "/data/munchhausen-by-proxy-sweet-ballad.jpeg",
