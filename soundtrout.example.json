@@ -2,27 +2,30 @@
   "artists": [
     {
       "slug": "munchausen-by-proxy",
-      "name": "Munchausen by Proxy"
+      "name": "Munchausen by Proxy",
+      "description": "Munchausen by Proxy is the bestest band in the world."
     }
   ],
   "songs": [
     {
       "slug": "uh-huh-who-are-you",
       "artistSlug": "nick-breed",
-      "title": "Uh-Huh (Who are you?)",
+      "name": "Uh-Huh (Who are you?)",
       "audioUrl": "/data/munchhausen-by-proxy-uh-huh.mp3",
       "coverUrl": "/data/munchhausen-by-proxy-uh-huh.jpeg",
       "genre": "Indie Pop",
-      "publishedAt": "2025-08-04"
+      "publishedAt": "2025-08-04",
+      "description": "This tells the tale of meeting someone special."
     },
     {
       "slug": "lfos-are-real",
       "artistSlug": "nick-breed",
-      "title": "Sweet Ballad",
+      "name": "Sweet Ballad",
       "audioUrl": "/data/munchhausen-by-proxy-sweet-ballad.mp3",
       "coverUrl": "/data/munchhausen-by-proxy-sweet-ballad.jpeg",
       "genre": "Indie Pop",
-      "publishedAt": "2025-08-04"
+      "publishedAt": "2025-08-04",
+      "description": "A personal balad for that special kind of person."
     }
   ]
 }

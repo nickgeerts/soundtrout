@@ -88,7 +88,7 @@ export const SongPlayer: FC<Props> = ({ song }) => {
                 <p className={styles.artist}>{artist.name}</p>
               </Link>
               <Link href={`/${song.slug}`} className={styles.link}>
-                <p>{song.title}</p>
+                <p>{song.name}</p>
               </Link>
             </div>
           </div>
