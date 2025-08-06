@@ -17,6 +17,7 @@ Self-hosted music streaming website built on React.js and Next.js.
 
 ```
 npm install
+npx prisma migrate dev
 npm run dev
 ```
 
@@ -24,6 +25,7 @@ npm run dev
 
 ```
 npm install
+npx prisma migrate deploy
 npm run build
 npm run start
 ```
