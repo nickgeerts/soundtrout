@@ -28,6 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+export function generateStaticParams() {
+  const songs = Object.values(indexedSongs)
+
+  return songs.map((song) => ({ slug: song.slug }))
+}
+
 export default async function Page({ params }: Props) {
   const { slug } = await params
   const artist: Artist = Object.values(indexedArtists)[0]
