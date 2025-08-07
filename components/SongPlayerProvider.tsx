@@ -14,6 +14,7 @@ import data from '../soundtrout.json'
 import { Artist } from '../types/artist'
 import { IndexedSongMetadata, Song } from '../types/song'
 import { incrementSongPlayCount } from '../actions/incrementSongPlayCount'
+import { fetchSongMetadata } from '../actions/fetchSongMetadata'
 
 type TSongPlayerContent = {
   artists: Artist[]
@@ -27,6 +28,7 @@ type TSongPlayerContent = {
   isPlaying: boolean
   playSong: (artistSlug: string, songSlug: string, startAt?: number) => void
   pauseSong: () => void
+  loading: boolean
 }
 
 const SongPlayerContext = createContext<TSongPlayerContent>({
@@ -40,7 +42,8 @@ const SongPlayerContext = createContext<TSongPlayerContent>({
   playingSlug: '',
   isPlaying: false,
   playSong: () => {},
-  pauseSong: () => {}
+  pauseSong: () => {},
+  loading: true
 })
 
 export function useSongPlayer() {
@@ -48,11 +51,10 @@ export function useSongPlayer() {
 }
 
 type Props = {
-  songMetadata: IndexedSongMetadata
   children: ReactNode
 }
 
-export const SongPlayerProvider: FC<Props> = ({ songMetadata: initialSongMetadata, children }) => {
+export const SongPlayerProvider: FC<Props> = ({ children }) => {
   const artists = data.artists ?? []
   const songs = data.songs ?? []
   const indexedSongs: Record<string, Song> = songs.reduce(
@@ -70,11 +72,17 @@ export const SongPlayerProvider: FC<Props> = ({ songMetadata: initialSongMetadat
   const isPlaying = useMemo(() => playingSlug !== '', [playingSlug])
   const [startTime, setStartTime] = useState(0)
   const timeout = useRef(null)
-  const [songMetadata, setSongMetadata] = useState(initialSongMetadata)
+  const [songMetadata, setSongMetadata] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const newAudioContext = new AudioContext()
     setAudioContext(newAudioContext)
+
+    fetchSongMetadata().then((newSongMetadata) => {
+      setSongMetadata(newSongMetadata)
+      setLoading(false)
+    })
   }, [])
 
   useEffect(() => {
@@ -181,7 +189,8 @@ export const SongPlayerProvider: FC<Props> = ({ songMetadata: initialSongMetadat
       playingSlug,
       isPlaying,
       playSong,
-      pauseSong
+      pauseSong,
+      loading
     }),
     [
       JSON.stringify(artists),
@@ -194,7 +203,8 @@ export const SongPlayerProvider: FC<Props> = ({ songMetadata: initialSongMetadat
       playingSlug,
       isPlaying,
       playSong,
-      pauseSong
+      pauseSong,
+      loading
     ]
   )
 

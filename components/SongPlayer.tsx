@@ -107,13 +107,13 @@ export const SongPlayer: FC<Props> = ({ song }) => {
           <div className={styles.actions}>
             <button className={styles.action} onClick={onClickLike}>
               <img src="/icons/heart.svg" className={styles.heartIcon} />
-              {songMetadata[fullSlug]?.likeCount ?? 0}
+              {songMetadata[fullSlug]?.likeCount ?? '...'}
             </button>
           </div>
 
           <div className={styles.plays}>
             <img src="/icons/play.svg" className={styles.playsIcon} />
-            {songMetadata[fullSlug]?.playCount ?? 0}
+            {songMetadata[fullSlug]?.playCount ?? '...'}
           </div>
         </div>
       </div>
