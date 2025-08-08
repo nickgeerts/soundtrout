@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+        - DATABASE_URL=postgresql://postgres:password@postgres:5432/prisma?schema=public
+        - DOMAIN
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/prisma?schema=public
+      - DOMAIN
+    networks:
+      - app-postgres
+
+  postgres:
+    image: postgres:17
+    hostname: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=prisma
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command: postgres -c listen_addresses='*'
+    networks:
+      - app-postgres
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d postgres']
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+networks:
+  app-postgres:
+
+volumes:
+  pgdata:
