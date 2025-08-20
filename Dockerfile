@@ -10,7 +10,7 @@ ARG DATABASE_URL
 ENV DATABASE_URL $DATABASE_URL
 ARG DOMAIN
 ENV DOMAIN $DOMAIN
-RUN npx prisma migrate deploy
+RUN npx prisma generate
 RUN npm run build
 
 EXPOSE 3000

@@ -31,7 +31,8 @@ export const SongPlayer: FC<Props> = ({ song }) => {
     artists,
     playSong,
     pauseSong,
-    playingSlug
+    playingSlug,
+    loading
   } = useSongPlayer()
   const artist = artists.find((currentArtist) => currentArtist.slug === song.artistSlug)
   const fullSlug = [artist.slug, song.slug].join('/')
@@ -107,13 +108,13 @@ export const SongPlayer: FC<Props> = ({ song }) => {
           <div className={styles.actions}>
             <button className={styles.action} onClick={onClickLike}>
               <img src="/icons/heart.svg" className={styles.heartIcon} />
-              {songMetadata[fullSlug]?.likeCount ?? '...'}
+              {loading ? '...' : songMetadata[fullSlug]?.likeCount ?? 0}
             </button>
           </div>
 
           <div className={styles.plays}>
             <img src="/icons/play.svg" className={styles.playsIcon} />
-            {songMetadata[fullSlug]?.playCount ?? '...'}
+            {loading ? '...' : songMetadata[fullSlug]?.playCount ?? 0}
           </div>
         </div>
       </div>

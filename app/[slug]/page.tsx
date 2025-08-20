@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       siteName: artist?.name,
-      images: [{ url: `https://${process.env.DOMAIN}/${song?.coverUrl}` }]
+      images: [{ url: `https://${process.env.DOMAIN}${song?.coverUrl}` }]
     }
   }
 }
