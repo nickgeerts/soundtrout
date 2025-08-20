@@ -1,3 +1,4 @@
+import { Footer } from '../components/Footer'
 import { SongPlayerProvider } from '../components/SongPlayerProvider'
 import './global.css'
 
@@ -10,7 +11,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body>
-        <SongPlayerProvider>{children}</SongPlayerProvider>
+        <main>
+          <SongPlayerProvider>{children}</SongPlayerProvider>
+        </main>
+        <Footer />
       </body>
     </html>
   )
