@@ -1,11 +1,9 @@
 import { SongPlayerProvider } from '../components/SongPlayerProvider'
 import './global.css'
 
-import { prisma } from './utils/prisma'
-
 export const metadata = {
   title: 'Soundtrout',
-  description: 'Self-hosted music bringing back full control to its owner.'
+  description: 'Self-hosted music streaming website built on React.js and Next.js.'
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

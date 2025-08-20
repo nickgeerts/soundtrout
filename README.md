@@ -21,7 +21,15 @@ npx prisma migrate dev
 npm run dev
 ```
 
-## Build and run
+## Build and run with Docker
+
+The Docker setup includes a Postgres server, so only a DOMAIN env var needs to be provided in the .env file.
+
+```
+docker compose up
+```
+
+## Build and run natively
 
 ```
 npm install
@@ -32,8 +40,9 @@ npm run start
 
 ## To do
 
+- Better song view
+- Better artist view
 - Mini-player
 - Auto-play all songs
-- Containerize
 - Multi-artist view
 - Light theme

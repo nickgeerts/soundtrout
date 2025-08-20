@@ -47,6 +47,8 @@ export default async function Page({ params }: Props) {
     <Container>
       <SongPlayer song={song} />
 
+      {song.description && <p className={styles.description}>{song.description}</p>}
+
       <Link href="/" className={styles.link}>
         More songs by {artist.name}
       </Link>

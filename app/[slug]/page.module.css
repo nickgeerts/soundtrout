@@ -1,4 +1,8 @@
 .link {
-  color: #aaa;
   padding-left: 12px;
+}
+
+.description {
+  color: #aaa;
+  padding: 0 12px 12px;
 }
