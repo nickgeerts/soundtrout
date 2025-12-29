@@ -1,4 +1,4 @@
-.artistHeader {
+.nameContainer {
   display: flex;
   justify-content: center;
 }
@@ -17,3 +17,8 @@
     font-size: 50px;
   }
 }
+
+.description {
+  padding: 25px 12px;
+}
+

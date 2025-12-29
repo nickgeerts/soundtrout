@@ -9,8 +9,13 @@ export const ArtistHeader: FC = () => {
   const artist = artists[0]
 
   return (
-    <div className={styles.artistHeader}>
-      <div className={styles.name}>{artist.name}</div>
+    <div>
+      <div className={styles.nameContainer}>
+        <div className={styles.name}>{artist.name}</div>
+      </div>
+      <div className={styles.description}>
+        {artist.description}
+      </div>
     </div>
   )
 }

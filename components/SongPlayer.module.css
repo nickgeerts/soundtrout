@@ -36,6 +36,17 @@
   filter: invert();
 }
 
+.downloadIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.downloadText {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
 .cover {
   width: 80px;
   height: 80px;
@@ -130,6 +141,10 @@
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.likeAction {
+  min-width: 52px;
 }
 
 .heartIcon {
