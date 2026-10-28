@@ -1,15 +1,19 @@
-FROM node:22-alpine
+FROM node:24-alpine AS base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+FROM base AS builder
+WORKDIR /app
 COPY . .
 ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 ARG DOMAIN
-ENV DOMAIN $DOMAIN
+ENV DOMAIN=$DOMAIN
+RUN npm run clean
+RUN npm run ci
 RUN npx prisma generate
 RUN npm run build
 

@@ -1,9 +1,22 @@
+# Source control
 *.md
 /.git
-/.next
+/.gitignore
 /.dockerignore
-/.env
-/node_modules
-/README.md
-/LICENSE
+
+# Build
 /Dockerfile
+/.next
+/.env
+/.env.*
+/node_modules
+
+# Exclude all log files
+*.log
+
+# Docs
+/LICENSE
+*.md
+
+# Include only the package.json file from the root directory
+!package.json

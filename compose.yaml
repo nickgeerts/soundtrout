@@ -1,7 +1,5 @@
-version: '3.9'
-
 services:
-  app:
+  soundtrout:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,9 +7,8 @@ services:
         - NODE_ENV=production
         - DATABASE_URL=postgresql://postgres:password@postgres:5432/prisma?schema=public
         - DOMAIN
+    command: sh -c "npx prisma migrate deploy && npm run start"
     restart: unless-stopped
-    ports:
-      - '3000:3000'
     depends_on:
       postgres:
         condition: service_healthy
@@ -20,30 +17,35 @@ services:
       - DATABASE_URL=postgresql://postgres:password@postgres:5432/prisma?schema=public
       - DOMAIN
     networks:
-      - app-postgres
+      - internal
+      - shared
+    ports:
+      - '3000:3000'
 
   postgres:
-    image: postgres:17
-    hostname: postgres
-    container_name: postgres
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=prisma
+      - PGDATA=/var/lib/postgresql/data
     volumes:
       - pgdata:/var/lib/postgresql/data
     command: postgres -c listen_addresses='*'
     networks:
-      - app-postgres
+      - internal
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres -d postgres']
       interval: 5s
       timeout: 2s
       retries: 20
 
-networks:
-  app-postgres:
-
 volumes:
   pgdata:
+
+networks:
+  internal:
+  shared:
+    external: true
+    name: shared
