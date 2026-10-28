@@ -13,8 +13,8 @@ ENV DATABASE_URL=$DATABASE_URL
 ARG DOMAIN
 ENV DOMAIN=$DOMAIN
 RUN npm run clean
-RUN npm run ci
 RUN npx prisma generate
+RUN npm run ci
 RUN npm run build
 
 EXPOSE 3000

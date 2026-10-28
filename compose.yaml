@@ -19,8 +19,6 @@ services:
     networks:
       - internal
       - shared
-    ports:
-      - '3000:3000'
 
   postgres:
     image: postgres:18-alpine
