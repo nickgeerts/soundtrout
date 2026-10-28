@@ -8,6 +8,7 @@ import { Waveform } from './Waveform'
 import Link from 'next/link'
 import { incrementSongLikeCount } from '../actions/incrementSongLikeCount'
 import { incrementSongDownloadCount } from '../actions/incrementSongDownloadCount'
+import { formatDistance } from 'date-fns'
 
 type Props = {
   song: Song
@@ -84,10 +85,10 @@ export const SongPlayer: FC<Props> = ({ song }) => {
       })
 
       const link = document.createElement('a')
-      link.download = song.downloadUrl.split('/').pop();
+      link.download = song.downloadUrl.split('/').pop()
       link.href = song.downloadUrl
-      link.click();
-      link.remove();
+      link.click()
+      link.remove()
     })
   }
 
@@ -113,7 +114,13 @@ export const SongPlayer: FC<Props> = ({ song }) => {
           </div>
 
           <div className={styles.metadata}>
-            <div className={styles.date}>1 month ago</div>
+            <div className={styles.date}>
+              {loading
+                ? ''
+                : formatDistance(new Date(song.publishedAt), new Date(), {
+                    addSuffix: true
+                  })}
+            </div>
             <div className={styles.genre}># {song.genre}</div>
           </div>
         </div>
@@ -126,22 +133,30 @@ export const SongPlayer: FC<Props> = ({ song }) => {
           <div className={styles.actions} title="Like">
             <button className={[styles.action, styles.likeAction].join(' ')} onClick={onClickLike}>
               <img src="/icons/heart.svg" className={styles.heartIcon} />
-              {loading ? '..' : songMetadata[fullSlug]?.likeCount ?? 0}
+              {loading ? '' : (songMetadata[fullSlug]?.likeCount ?? 0)}
             </button>
 
             {song.downloadUrl && (
-              <button className={styles.action} onClick={onDownload} title={songMetadata[fullSlug]?.downloadCount ? `${songMetadata[fullSlug]?.downloadCount} downloads` : ''}>
+              <button
+                className={styles.action}
+                onClick={onDownload}
+                title={
+                  songMetadata[fullSlug]?.downloadCount
+                    ? `${songMetadata[fullSlug]?.downloadCount} downloads`
+                    : ''
+                }
+              >
                 <img src="/icons/download.svg" className={styles.downloadIcon} />
-                <span className={styles.downloadText}>
-                  Download
-                </span>
+                <span className={styles.downloadText}>Download</span>
               </button>
             )}
           </div>
 
           <div className={styles.plays}>
             <img src="/icons/play.svg" className={styles.playsIcon} />
-            {loading ? '..' : songMetadata[fullSlug]?.playCount ?? 0}
+            <span className={styles.playCount}>
+              {loading ? '' : (songMetadata[fullSlug]?.playCount ?? 0)}
+            </span>
           </div>
         </div>
       </div>
