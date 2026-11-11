@@ -1,6 +1,8 @@
-FROM node:24-alpine AS base
+FROM node:26-alpine AS base
 WORKDIR /app
 COPY package*.json ./
+RUN npm config set min-release-age 7
+RUN npm config set ignore-scripts true
 RUN npm install
 
 FROM base AS builder
